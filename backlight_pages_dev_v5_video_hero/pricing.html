@@ -1,0 +1,288 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>報價查詢 - 逆光文化｜Backlight Studio</title>
+    <meta name="description" content="查詢逆光文化活動紀錄、廣告、MV與介紹片攝影服務的粗估報價。">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Helvetica', sans-serif;
+            overflow-x: hidden;
+        }
+        .card {
+            background: #111;
+            border: 1px solid #444;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+        }
+        .light-streak {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+            height: 2px;
+            animation: streak 3s infinite linear;
+        }
+        @keyframes streak {
+            0% { width: 0; left: 0; }
+            50% { width: 100px; }
+            100% { width: 0; left: 100%; }
+        }
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #ccc;
+        }
+        .custom-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px;
+            margin: 4px 0;
+        }
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #666;
+            margin-right: 10px;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .custom-option:hover .custom-checkbox {
+            border-color: #4CAF50;
+        }
+        .custom-option.selected .custom-checkbox {
+            border-color: #4CAF50;
+            background-color: #4CAF50;
+            position: relative;
+        }
+        .custom-option.selected .custom-checkbox::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            top: 2px;
+            left: 6px;
+        }
+        .total-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative">
+    <!-- 燈光線條效果 -->
+    <div class="light-streak" style="top: 20%;"></div>
+    <div class="light-streak" style="top: 70%;"></div>
+
+    <header class="bg-black p-4 sticky top-0 z-50">
+        <div class="container mx-auto">
+            <a href="/" class="text-xl font-semibold">逆光文化｜Backlight Studio</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 mt-12">
+        <!-- 介紹區塊 -->
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold mb-4">攝影報價查詢</h1>
+            <p class="text-gray-400 mb-4">逆光文化攝影報價系統，快速提供粗估報價，適合剛開始規劃的您了解攝影行情；客製化報價可依需求調整，打造專屬您的預算方案。估價完成後，系統將顯示粗估總價，供您參考！<a href="#" class="text-blue-400"> >> 查看詳細操作說明</a></p>
+            <p class="text-sm text-gray-500">加入逆光文化會員後，您可以輕鬆回顧您的估價結果，也可以使用收藏功能，隨時查找攝影靈感。</p>
+            <div class="mt-4 p-4 bg-gray-800 rounded">
+                <p class="text-sm">逆光文化承諾：我們致力於提供高品質的服務，為保障您的權益與維護我們的良好口碑，您的隱私資訊將受到嚴格保密。</p>
+            </div>
+        </div>
+
+        <!-- 選擇形式 -->
+        <div class="card p-6 mb-6">
+            <h2 class="text-lg font-bold mb-4">選擇拍攝形式</h2>
+            <div class="space-y-3">
+                <div class="custom-option" onclick="toggleSelection(this, 'type', 'activity')">
+                    <div class="custom-checkbox"></div>
+                    <label>活動紀錄</label>
+                </div>
+                <div class="custom-option" onclick="toggleSelection(this, 'type', 'ad')">
+                    <div class="custom-checkbox"></div>
+                    <label>廣告</label>
+                </div>
+                <div class="custom-option" onclick="toggleSelection(this, 'type', 'mv')">
+                    <div class="custom-checkbox"></div>
+                    <label>MV</label>
+                </div>
+                <div class="custom-option" onclick="toggleSelection(this, 'type', 'intro')">
+                    <div class="custom-checkbox"></div>
+                    <label>介紹片</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 選擇拍攝規模 -->
+        <div class="card p-6 mb-6">
+            <h2 class="text-lg font-bold mb-4">選擇拍攝規模</h2>
+            <p class="text-gray-400 mb-4">如果尚未確定時數，我們將使用常規時數進行估算。</p>
+            <div class="space-y-3">
+                <div class="custom-option" onclick="toggleSelection(this, 'scale', 'small')">
+                    <div class="custom-checkbox"></div>
+                    <label>小型活動 (2小時)</label>
+                </div>
+                <div class="custom-option" onclick="toggleSelection(this, 'scale', 'medium')">
+                    <div class="custom-checkbox"></div>
+                    <label>中型活動 (4小時)</label>
+                </div>
+                <div class="custom-option" onclick="toggleSelection(this, 'scale', 'large')">
+                    <div class="custom-checkbox"></div>
+                    <label>大型活動 (6小時以上，自訂)</label>
+                </div>
+                <div id="custom-hours" style="display:none;" class="mt-4">
+                    <label class="block mb-1">自訂拍攝時數 (小時)</label>
+                    <input type="number" id="hours" min="1" max="12" value="6" class="w-full p-2 bg-gray-900 border border-gray-500 rounded" oninput="calculatePrice()">
+                </div>
+            </div>
+        </div>
+
+        <!-- 選擇交付內容 -->
+        <div class="card p-6 mb-6">
+            <h2 class="text-lg font-bold mb-4">選擇需要交付的內容</h2>
+            <div class="space-y-3">
+                <div class="custom-option" onclick="toggleSelection(this, 'deliverable', 'short-video')">
+                    <div class="custom-checkbox"></div>
+                    <label>1分鐘短片</label>
+                </div>
+                <div class="custom-option" onclick="toggleSelection(this, 'deliverable', 'long-video')">
+                    <div class="custom-checkbox"></div>
+                    <label>30分鐘長片</label>
+                </div>
+                <div class="custom-option" onclick="toggleSelection(this, 'deliverable', 'photos')">
+                    <div class="custom-checkbox"></div>
+                    <label>平面照片</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 特殊需求 -->
+        <div class="card p-6 mb-6">
+            <h2 class="text-lg font-bold mb-4">特殊需求</h2>
+            <div class="space-y-3">
+                <div class="custom-option" onclick="toggleSelection(this, 'special', 'drone')">
+                    <div class="custom-checkbox"></div>
+                    <label>需要空拍畫面 (請聯絡我們額外報價)</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 粗估總價 -->
+        <div class="card p-6 text-center">
+            <h3 class="font-semibold mb-2">粗估總價 (NT$)</h3>
+            <div id="total-price" class="total-price text-green-400">0 元</div>
+            <p class="text-sm text-gray-500 mt-4">此為粗估價格，有意願請聯絡我們：service@backlightstudio.com 或 LINE ID: @backlightstudio</p>
+        </div>
+    </main>
+
+    <script>
+        document.querySelectorAll('.custom-option').forEach(option => {
+            option.addEventListener('click', function() {
+                toggleSelection(this, this.dataset.type, this.dataset.value);
+                calculatePrice();
+            });
+        });
+
+        function toggleSelection(element, type, value) {
+    // ensure dataset is set for calculatePrice
+    element.dataset.type = type;
+    element.dataset.value = value;
+    const options = document.querySelectorAll(`[data-type="${type}"]`);
+    if (type === 'type' || type === 'scale') {
+        options.forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+        if (type === 'scale' && value === 'large') {
+            document.getElementById('custom-hours').style.display = 'block';
+        } else {
+            document.getElementById('custom-hours').style.display = 'none';
+        }
+    } else {
+        element.classList.toggle('selected');
+    }
+    if (typeof calculatePrice === 'function') calculatePrice();
+} else {
+                element.classList.toggle('selected');
+            }
+        }
+
+        document.querySelectorAll('.custom-option').forEach(option => {
+            option.dataset.type = option.closest('div').querySelector('h2')?.textContent.includes('形式') ? 'type' :
+                                option.closest('div').querySelector('h2')?.textContent.includes('規模') ? 'scale' :
+                                option.closest('div').querySelector('h2')?.textContent.includes('交付') ? 'deliverable' :
+                                'special';
+            option.dataset.value = option.querySelector('label').textContent.trim();
+        });
+
+        function calculatePrice() {
+            let total = 0;
+            const scale = document.querySelector('.custom-option.selected[data-type="scale"]')?.dataset.value || 'small';
+            let hours = 2; // 預設
+            if (scale === 'medium') hours = 4;
+            else if (scale === 'large') hours = parseInt(document.getElementById('hours').value) || 6;
+
+            const type = document.querySelector('.custom-option.selected[data-type="type"]')?.dataset.value || 'activity';
+            if (type === 'activity') total += 4500 * hours;
+            else if (type === 'ad') total += 7000 * hours;
+            else if (type === 'mv' || type === 'intro') total += 9000 * hours;
+
+            // 交付內容
+            if (document.querySelector('.custom-option.selected[data-value="1分鐘短片"]')) total += 3000;
+            if (document.querySelector('.custom-option.selected[data-value="30分鐘長片"]')) total += 10000;
+            if (document.querySelector('.custom-option.selected[data-value="平面照片"]')) total += 2000;
+
+            document.getElementById('total-price').textContent = total.toLocaleString() + ' 元';
+        }
+
+        // 初始計算
+        calculatePrice();
+    </script>
+</body>
+</html>

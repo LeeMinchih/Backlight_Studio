@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>逆光文化｜Backlight Studio</title>
+  <meta name="description" content="以紀實眼光打造有溫度的影像敘事：紀錄片、形象廣告、品牌故事影像。" />
+  <meta property="og:title" content="逆光文化｜Backlight Studio" />
+  <meta property="og:description" content="紀錄片・形象廣告・品牌故事影像" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og-cover.jpg" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <style>
+    :root{
+      --bg:#0a0a0a; --fg:#fafafa; --muted:#bfbfbf; --line:#1f1f1f;
+      --pill:#111; --pill-b:#2a2a2a; --pill-f:#e5e5e5;
+    }
+    *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans TC",sans-serif;letter-spacing:.2px}
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(0,0,0,.65),rgba(0,0,0,0));backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.6px}
+    .brand img{height:28px;width:auto;background:#fff;border-radius:6px;box-shadow:0 3px 12px rgba(0,0,0,.35)}
+    .nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0}
+    .nav a{opacity:.9;padding:6px 10px;border-radius:999px} .nav a:hover{background:#111;opacity:1}
+    .hero{padding:88px 0 40px;border-bottom:1px solid var(--line)}
+    .kicker{text-transform:uppercase;font-size:12px;letter-spacing:.18em;color:var(--muted)}
+    h1.title{font-size:56px;line-height:1.05;margin:8px 0 12px;letter-spacing:.5px}
+    .lead{color:var(--muted);max-width:720px;font-size:18px}
+    .hero-actions{display:flex;gap:10px;margin-top:18px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:var(--pill);border:1px solid var(--pill-b);color:var(--pill-f)}
+    .section{padding:64px 0;border-bottom:1px solid var(--line)}
+    h2.section-title{font-size:28px;margin:0 0 12px} p.sub{color:var(--muted);margin:0 0 20px}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:#0e0e0e;border:1px solid var(--line);border-radius:14px;padding:18px}
+    .card h3{margin:0 0 8px;font-size:18px} .card p{margin:0 0 8px;color:var(--muted)}
+    .card ul{margin:0;padding-left:18px;color:var(--muted)} .card li{margin:4px 0}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+    .filters button{cursor:pointer} .filters .pill.active{background:#fff;color:#111;border-color:#fff}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .tile{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--line);background:#101010;display:flex;flex-direction:column}
+    .tile img{width:100%;height:auto;object-fit:cover;transition:transform .5s ease}
+    .tile:hover img{transform:scale(1.04)}
+    .tile .meta{display:flex;flex-direction:column;gap:6px;padding:10px;border-top:1px solid var(--line)}
+    .tile .cap{align-self:flex-start}
+    .tile .title{font-size:14px;color:#ddd;line-height:1.35}
+    .split{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+    blockquote{color:#d6d6d6;margin:0;border-left:2px solid #333;padding-left:12px}
+    footer{padding:36px 0;color:#9a9a9a}
+    @media (max-width:960px){ .features{grid-template-columns:1fr} .grid{grid-template-columns:1fr 1fr} .split{grid-template-columns:1fr} h1.title{font-size:40px} }
+    @media (max-width:560px){ .grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+
+
+    <header>
+        <div class="container nav">
+            <a class="brand" href="/"><img src="/logo.png" alt="Backlight Studio 標誌">逆光文化｜Backlight Studio</a>
+
+            <nav aria-label="主導覽">
+                <ul>
+                    <li><a href="#works">作品 Works</a></li>
+                    <li><a href="#about">關於 About Us</a></li>
+                    <li><a class="nav-link" href="/pricing.html">線上估價 Pricing</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        const a = document.querySelector('a[href="/pricing.html"]');
+        if (a && location.pathname === '/pricing.html') {
+            a.setAttribute('aria-current', 'page');
+            a.classList.add('active'); // 你的 CSS 可用 .active 做高亮
+        }
+    </script>
+
+
+    <main id="top">
+        <section class="hero">
+            <div class="container">
+                <div class="kicker">DOCUMENTARY • COMMERCIAL • BRAND STORY</div>
+                <h1 class="title">逆光裡，看見真實的溫度</h1>
+                <p class="lead">我們以紀實眼光與電影級敘事，將真實情感化為能被觀眾記住的視覺體驗。擅長：紀錄片製作、形象廣告、品牌故事影像。</p>
+                <div class="hero-actions">
+                    <a class="pill" href="#works">看作品</a>
+                    <a class="pill" href="#about">公司簡介</a>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">電影感影像製作</h2>
+                <p class="sub">逆光文化的影像語言源於電影思維。<br />我們強調光線、構圖與節奏的敘事功能，讓每一幀畫面不只是紀錄，而是敘事。<br />無論是個人的專業形象、或品牌故事的生命軌跡，我們都以電影級調光與分鏡設計，創造視覺上的沈浸感與質感。</p>
+                <div class="features" style="grid-template-columns:1fr 1fr 1fr">
+                    <div class="card">
+                        <h3>▌品牌敘事影片</h3>
+                        <p>結合理性的邏輯與感性的氛圍，從品牌核心價值出發，提煉出具有情感共鳴的故事主軸。</p>
+                        <p>我們相信好的品牌影像，不是直述產品，而是講述「為什麼值得被信任」——這正是逆光文化擅長的敘事轉譯。</p>
+                    </div>
+                    <div class="card">
+                        <h3>▌紀實風格形象廣告</h3>
+                        <p>以紀錄片語法取代傳統廣告話術，真誠捕捉人物互動、空間氛圍與細節表情。</p>
+                        <p>作品常以自然光與即興演繹構成，使觀眾能感受到真實發生的瞬間，並在理性之外被情感打動。</p>
+                    </div>
+                    <div class="card">
+                        <h3>▌社群影像行銷</h3>
+                        <p>延伸長片概念至短影音與社群素材，維持一貫的影像質感與品牌語氣。</p>
+                        <p>我們協助客戶從「一次感動」走向「長期溝通」，以影像建立品牌記憶與信任連結。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="works" class="section">
+            <div class="container">
+                <h2 class="section-title">作品 Works</h2>
+                <div class="filters">
+                    <button class="pill" data-filter="all">全部</button>
+                    <button class="pill" data-filter="event">活動紀錄</button>
+                    <button class="pill" data-filter="feature">長紀錄片</button>
+                    <button class="pill" data-filter="event-short">活動紀錄短片</button>
+                </div>
+                <div class="grid" id="grid">
+
+                    <a class="tile item" data-cat="event" href="https://www.youtube.com/watch?v=xRE3ZInS7zk" target="_blank" rel="noopener">
+                        <img loading="lazy" src="https://img.youtube.com/vi/xRE3ZInS7zk/hqdefault.jpg" alt="活動紀錄" />
+                        <div class="meta">
+                            <span class="pill cap">活動紀錄</span>
+                            <div class="title yt" data-yt="xRE3ZInS7zk">載入標題中…</div>
+                        </div>
+                    </a>
+
+                    <a class="tile item" data-cat="event" href="https://www.youtube.com/watch?v=kSjNWQiMat4" target="_blank" rel="noopener">
+                        <img loading="lazy" src="https://img.youtube.com/vi/kSjNWQiMat4/hqdefault.jpg" alt="活動紀錄" />
+                        <div class="meta">
+                            <span class="pill cap">活動紀錄</span>
+                            <div class="title yt" data-yt="kSjNWQiMat4">載入標題中…</div>
+                        </div>
+                    </a>
+
+                    <a class="tile item" data-cat="event" href="https://www.youtube.com/watch?v=panQZjsc-98" target="_blank" rel="noopener">
+                        <img loading="lazy" src="https://img.youtube.com/vi/panQZjsc-98/hqdefault.jpg" alt="活動紀錄" />
+                        <div class="meta">
+                            <span class="pill cap">活動紀錄</span>
+                            <div class="title yt" data-yt="panQZjsc-98">載入標題中…</div>
+                        </div>
+                    </a>
+
+                    <a class="tile item" data-cat="event" href="https://www.youtube.com/watch?v=MWhiwRSli8U" target="_blank" rel="noopener">
+                        <img loading="lazy" src="https://img.youtube.com/vi/MWhiwRSli8U/hqdefault.jpg" alt="活動紀錄" />
+                        <div class="meta">
+                            <span class="pill cap">活動紀錄</span>
+                            <div class="title yt" data-yt="MWhiwRSli8U">載入標題中…</div>
+                        </div>
+                    </a>
+
+                    <a class="tile item" data-cat="event" href="https://www.youtube.com/watch?v=1snSfGFDcrQ" target="_blank" rel="noopener">
+                        <img loading="lazy" src="https://img.youtube.com/vi/1snSfGFDcrQ/hqdefault.jpg" alt="活動紀錄" />
+                        <div class="meta">
+                            <span class="pill cap">活動紀錄</span>
+                            <div class="title yt" data-yt="1snSfGFDcrQ">載入標題中…</div>
+                        </div>
+                    </a>
+
+                    <a class="tile item" data-cat="event" href="https://www.youtube.com/watch?v=j_ZP7i7S8VU" target="_blank" rel="noopener">
+                        <img loading="lazy" src="https://img.youtube.com/vi/j_ZP7i7S8VU/hqdefault.jpg" alt="活動紀錄" />
+                        <div class="meta">
+                            <span class="pill cap">活動紀錄</span>
+                            <div class="title yt" data-yt="j_ZP7i7S8VU">載入標題中…</div>
+                        </div>
+                    </a>
+
+                    <a class="tile item" data-cat="feature" href="https://www.youtube.com/watch?v=NwRkIVJtVc8" target="_blank" rel="noopener">
+                        <img loading="lazy" src="https://img.youtube.com/vi/NwRkIVJtVc8/hqdefault.jpg" alt="長紀錄片" />
+                        <div class="meta">
+                            <span class="pill cap">長紀錄片</span>
+                            <div class="title yt" data-yt="NwRkIVJtVc8">載入標題中…</div>
+                        </div>
+                    </a>
+
+                    <a class="tile item" data-cat="event-short" href="https://www.youtube.com/watch?v=dnUXRd0PrVE" target="_blank" rel="noopener">
+                        <img loading="lazy" src="https://img.youtube.com/vi/dnUXRd0PrVE/hqdefault.jpg" alt="活動短片" />
+                        <div class="meta">
+                            <span class="pill cap">活動短片</span>
+                            <div class="title yt" data-yt="dnUXRd0PrVE">載入標題中…</div>
+                        </div>
+                    </a>
+
+                    <a class="tile item" data-cat="event-short" href="https://www.youtube.com/watch?v=kz2B-GiaQXs" target="_blank" rel="noopener">
+                        <img loading="lazy" src="https://img.youtube.com/vi/kz2B-GiaQXs/hqdefault.jpg" alt="活動短片" />
+                        <div class="meta">
+                            <span class="pill cap">活動短片</span>
+                            <div class="title yt" data-yt="kz2B-GiaQXs">載入標題中…</div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container split">
+                <div class="card">
+                    <h2 class="section-title">公司簡介</h2>
+                    <p class="sub">逆光文化有限公司｜Backlight Studio（南投）</p>
+                    <p>逆光文化以「光」為精神核心，致力於捕捉被忽略的細節與真實情感。從地方文化紀錄、非營利倡議，到品牌形象影片，我們以紀錄片的誠實視角與電影級敘事力，留下能被感受的故事。</p>
+                </div>
+                <div class="card">
+                    <h2 class="section-title">製作理念</h2>
+                    <blockquote>「光不只照亮被看見的，也溫柔了被忽略的。」</blockquote>
+                    <p>我們將「人」置於畫面中心，結合聲音、光影與真實互動，讓影像成為一段能被記住的故事體驗。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <div>© <span id="year"></span> 逆光文化有限公司｜Backlight Studio</div>
+            <div><a href="#works">作品</a> · <a href="#about">關於</a></div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        // 分類 + 雜湊
+        (function () {
+            const pills = [...document.querySelectorAll('.filters .pill')];
+            const items = [...document.querySelectorAll('#grid .item')];
+            function apply(f) {
+                items.forEach(el => { const cat = el.getAttribute('data-cat'); el.style.display = (f === 'all' || f === cat) ? '' : 'none'; });
+                pills.forEach(p => p.classList.toggle('active', p.getAttribute('data-filter') === f));
+            }
+            function sync() { const h = (location.hash || '').replace('#', '') || 'all'; apply(h); }
+            pills.forEach(p => p.addEventListener('click', () => { const f = p.getAttribute('data-filter'); location.hash = f === 'all' ? '#all' : '#' + f; apply(f); }));
+            window.addEventListener('hashchange', sync); sync();
+        })();
+        // 取得 YouTube 標題（oEmbed）
+        (function () {
+            const ys = [...document.querySelectorAll('.yt[data-yt]')];
+            ys.forEach(async el => {
+                const id = el.getAttribute('data-yt');
+                const url = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`;
+                try {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error('fetch failed');
+                    const data = await res.json();
+                    el.textContent = data.title || '（無標題）';
+                } catch (e) {
+                    el.textContent = 'YouTube 標題取得失敗';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
